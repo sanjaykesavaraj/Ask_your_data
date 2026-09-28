@@ -1,0 +1,13 @@
+# Core
+pandas>=2.0
+numpy>=1.24
+streamlit>=1.30
+plotly>=5.18
+
+# Reporting helpers
+tabulate>=0.9
+
+# Optional: only needed if you want the LLM back-end.
+# The project runs fully offline without them.
+# openai
+# anthropic

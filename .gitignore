@@ -1,0 +1,15 @@
+# Generated - rebuilt by `python src/build_db.py` / automatically on app start.
+# Kept out of git on purpose: 11 MB binary + 10 MB of raw CSVs. The generator is
+# seeded, so a rebuild reproduces byte-identical data (same eval numbers).
+data/
+raw/
+
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.DS_Store
+.streamlit/secrets.toml
+*.log

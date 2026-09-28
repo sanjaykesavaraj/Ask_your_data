@@ -1,0 +1,343 @@
+[
+  {
+    "id": 1,
+    "category": "scalar",
+    "question": "What was total revenue last quarter?",
+    "gold": "SELECT ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE year = 2026 AND quarter = 2"
+  },
+  {
+    "id": 2,
+    "category": "scalar",
+    "question": "What is our total revenue?",
+    "gold": "SELECT ROUND(SUM(net_revenue),2) AS revenue FROM v_sales"
+  },
+  {
+    "id": 3,
+    "category": "scalar",
+    "question": "How many orders were delivered last month?",
+    "gold": "SELECT COUNT(DISTINCT order_id) AS orders FROM v_sales WHERE month = '2026-07'"
+  },
+  {
+    "id": 4,
+    "category": "scalar",
+    "question": "How many customers did we have last month?",
+    "gold": "SELECT COUNT(DISTINCT customer_id) AS customers FROM v_sales WHERE month = '2026-07'"
+  },
+  {
+    "id": 5,
+    "category": "scalar",
+    "question": "What was the average order value in 2025?",
+    "gold": "SELECT ROUND(SUM(net_revenue)*1.0/COUNT(DISTINCT order_id),2) AS aov FROM v_sales WHERE year = 2025"
+  },
+  {
+    "id": 6,
+    "category": "scalar",
+    "question": "How many units were sold in Q1 2026?",
+    "gold": "SELECT SUM(quantity) AS units FROM v_sales WHERE year = 2026 AND quarter = 1"
+  },
+  {
+    "id": 7,
+    "category": "scalar",
+    "question": "How much discount did we give last year?",
+    "gold": "SELECT ROUND(SUM(discount_amount),2) AS discount FROM v_sales WHERE year = 2025"
+  },
+  {
+    "id": 8,
+    "category": "scalar",
+    "question": "What was our gross margin in 2024?",
+    "gold": "SELECT ROUND(SUM(gross_margin),2) AS margin FROM v_sales WHERE year = 2024"
+  },
+  {
+    "id": 9,
+    "category": "scalar",
+    "question": "What was the revenue in Electronics in Chennai?",
+    "gold": "SELECT ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE city = 'Chennai' AND category = 'Electronics'"
+  },
+  {
+    "id": 10,
+    "category": "rank",
+    "question": "Top 5 cities by revenue",
+    "gold": "SELECT city AS city, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY city ORDER BY revenue DESC LIMIT 5"
+  },
+  {
+    "id": 11,
+    "category": "rank",
+    "question": "Top 3 categories by margin",
+    "gold": "SELECT category AS category, ROUND(SUM(gross_margin),2) AS margin FROM v_sales GROUP BY category ORDER BY margin DESC LIMIT 3"
+  },
+  {
+    "id": 12,
+    "category": "rank",
+    "question": "Which product has the highest revenue?",
+    "gold": "SELECT product_name AS product, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY product_name ORDER BY revenue DESC LIMIT 1"
+  },
+  {
+    "id": 13,
+    "category": "rank",
+    "question": "Worst 3 subcategories by margin",
+    "gold": "SELECT subcategory AS subcategory, ROUND(SUM(gross_margin),2) AS margin FROM v_sales GROUP BY subcategory ORDER BY margin ASC LIMIT 3"
+  },
+  {
+    "id": 14,
+    "category": "rank",
+    "question": "Which month had the highest revenue?",
+    "gold": "SELECT month AS month, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY month ORDER BY revenue DESC LIMIT 1"
+  },
+  {
+    "id": 15,
+    "category": "rank",
+    "question": "Which channel has the highest average order value?",
+    "gold": "SELECT channel AS channel, ROUND(SUM(net_revenue)*1.0/COUNT(DISTINCT order_id),2) AS aov FROM v_sales GROUP BY channel ORDER BY aov DESC LIMIT 1"
+  },
+  {
+    "id": 16,
+    "category": "rank",
+    "question": "Bottom 5 cities by customers",
+    "gold": "SELECT city AS city, COUNT(DISTINCT customer_id) AS customers FROM v_sales GROUP BY city ORDER BY customers ASC LIMIT 5"
+  },
+  {
+    "id": 17,
+    "category": "rank",
+    "question": "Top 10 products by units sold",
+    "gold": "SELECT product_name AS product, SUM(quantity) AS units FROM v_sales GROUP BY product_name ORDER BY units DESC LIMIT 10"
+  },
+  {
+    "id": 18,
+    "category": "rank",
+    "question": "Which state has the lowest revenue?",
+    "gold": "SELECT state AS state, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY state ORDER BY revenue ASC LIMIT 1"
+  },
+  {
+    "id": 19,
+    "category": "breakdown",
+    "question": "Revenue by category",
+    "gold": "SELECT category AS category, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY category ORDER BY revenue DESC LIMIT 25"
+  },
+  {
+    "id": 20,
+    "category": "breakdown",
+    "question": "Revenue by city in 2025",
+    "gold": "SELECT city AS city, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE year = 2025 GROUP BY city ORDER BY revenue DESC LIMIT 25"
+  },
+  {
+    "id": 21,
+    "category": "breakdown",
+    "question": "Average order value by channel",
+    "gold": "SELECT channel AS channel, ROUND(SUM(net_revenue)*1.0/COUNT(DISTINCT order_id),2) AS aov FROM v_sales GROUP BY channel ORDER BY aov DESC LIMIT 25"
+  },
+  {
+    "id": 22,
+    "category": "breakdown",
+    "question": "Units sold by payment method",
+    "gold": "SELECT payment_method AS payment_method, SUM(quantity) AS units FROM v_sales GROUP BY payment_method ORDER BY units DESC LIMIT 25"
+  },
+  {
+    "id": 23,
+    "category": "breakdown",
+    "question": "Revenue by gender",
+    "gold": "SELECT gender AS gender, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY gender ORDER BY revenue DESC LIMIT 25"
+  },
+  {
+    "id": 24,
+    "category": "breakdown",
+    "question": "Margin by subcategory",
+    "gold": "SELECT subcategory AS subcategory, ROUND(SUM(gross_margin),2) AS margin FROM v_sales GROUP BY subcategory ORDER BY margin DESC LIMIT 25"
+  },
+  {
+    "id": 25,
+    "category": "breakdown",
+    "question": "Customers by acquisition channel",
+    "gold": "SELECT acquisition_channel AS acquisition_channel, COUNT(DISTINCT customer_id) AS customers FROM v_sales GROUP BY acquisition_channel ORDER BY customers DESC LIMIT 25"
+  },
+  {
+    "id": 26,
+    "category": "breakdown",
+    "question": "Revenue by channel last quarter",
+    "gold": "SELECT channel AS channel, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE year = 2026 AND quarter = 2 GROUP BY channel ORDER BY revenue DESC LIMIT 25"
+  },
+  {
+    "id": 27,
+    "category": "breakdown",
+    "question": "Discounts by category",
+    "gold": "SELECT category AS category, ROUND(SUM(discount_amount),2) AS discount FROM v_sales GROUP BY category ORDER BY discount DESC LIMIT 25"
+  },
+  {
+    "id": 28,
+    "category": "trend",
+    "question": "Monthly revenue trend",
+    "gold": "SELECT month AS month, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY month ORDER BY month ASC LIMIT 5000"
+  },
+  {
+    "id": 29,
+    "category": "trend",
+    "question": "Quarterly revenue trend",
+    "gold": "SELECT year || '-Q' || quarter AS quarter, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY year, quarter ORDER BY year, quarter ASC LIMIT 5000"
+  },
+  {
+    "id": 30,
+    "category": "trend",
+    "question": "Yearly revenue trend",
+    "gold": "SELECT year AS year, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales GROUP BY year ORDER BY year ASC LIMIT 5000"
+  },
+  {
+    "id": 31,
+    "category": "trend",
+    "question": "Monthly orders trend",
+    "gold": "SELECT month AS month, COUNT(DISTINCT order_id) AS orders FROM v_sales GROUP BY month ORDER BY month ASC LIMIT 5000"
+  },
+  {
+    "id": 32,
+    "category": "comparison",
+    "question": "Compare revenue in 2025 vs 2024",
+    "gold": "SELECT '2024' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2024 UNION ALL SELECT '2025' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2025 ORDER BY period"
+  },
+  {
+    "id": 33,
+    "category": "comparison",
+    "question": "Compare revenue in 2024 vs 2026",
+    "gold": "SELECT '2024' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2024 UNION ALL SELECT '2026' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2026 ORDER BY period"
+  },
+  {
+    "id": 34,
+    "category": "comparison",
+    "question": "YoY revenue growth",
+    "gold": "SELECT '2025' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2025 UNION ALL SELECT '2026' AS period, ROUND(SUM(net_revenue),2) AS value FROM v_sales WHERE year = 2026 ORDER BY period"
+  },
+  {
+    "id": 35,
+    "category": "share",
+    "question": "What share of revenue comes from Chennai?",
+    "gold": "SELECT ROUND(100.0*SUM(CASE WHEN city = 'Chennai' THEN net_revenue ELSE 0 END)/NULLIF(SUM(net_revenue),0),2) AS share_pct, ROUND(SUM(CASE WHEN city = 'Chennai' THEN net_revenue ELSE 0 END),2) AS segment_revenue, ROUND(SUM(net_revenue),2) AS total_revenue FROM v_sales WHERE 1=1"
+  },
+  {
+    "id": 36,
+    "category": "share",
+    "question": "What percentage of revenue comes from Electronics?",
+    "gold": "SELECT ROUND(100.0*SUM(CASE WHEN category = 'Electronics' THEN net_revenue ELSE 0 END)/NULLIF(SUM(net_revenue),0),2) AS share_pct, ROUND(SUM(CASE WHEN category = 'Electronics' THEN net_revenue ELSE 0 END),2) AS segment_revenue, ROUND(SUM(net_revenue),2) AS total_revenue FROM v_sales WHERE 1=1"
+  },
+  {
+    "id": 37,
+    "category": "share",
+    "question": "What share of revenue comes from Mobile App?",
+    "gold": "SELECT ROUND(100.0*SUM(CASE WHEN channel = 'Mobile App' THEN net_revenue ELSE 0 END)/NULLIF(SUM(net_revenue),0),2) AS share_pct, ROUND(SUM(CASE WHEN channel = 'Mobile App' THEN net_revenue ELSE 0 END),2) AS segment_revenue, ROUND(SUM(net_revenue),2) AS total_revenue FROM v_sales WHERE 1=1"
+  },
+  {
+    "id": 38,
+    "category": "rate_metric",
+    "question": "What is the return rate?",
+    "gold": "SELECT ROUND(100.0*(SELECT COUNT(*) FROM v_orders WHERE status='Returned')/NULLIF((SELECT COUNT(*) FROM v_orders),0),2) AS value"
+  },
+  {
+    "id": 39,
+    "category": "rate_metric",
+    "question": "Return rate by category",
+    "gold": "SELECT p.category AS category, ROUND(100.0*COUNT(DISTINCT CASE WHEN o.status='Returned' THEN o.order_id END)/NULLIF(COUNT(DISTINCT o.order_id),0),2) AS value FROM v_orders o JOIN order_items oi ON oi.order_id = o.order_id JOIN products p ON p.product_id = oi.product_id GROUP BY p.category ORDER BY value DESC LIMIT 25"
+  },
+  {
+    "id": 40,
+    "category": "rate_metric",
+    "question": "Cancellation rate by city",
+    "gold": "SELECT o.city AS city, ROUND(100.0*COUNT(DISTINCT CASE WHEN o.status='Cancelled' THEN o.order_id END)/NULLIF(COUNT(DISTINCT o.order_id),0),2) AS value FROM v_orders o GROUP BY o.city ORDER BY value DESC LIMIT 25"
+  },
+  {
+    "id": 41,
+    "category": "rate_metric",
+    "question": "ROAS by channel last year",
+    "gold": "SELECT s.channel AS channel, ROUND(SUM(s.rev)/NULLIF(SUM(m.spend),0),2) AS value FROM (SELECT channel, month, SUM(net_revenue) AS rev FROM v_sales WHERE year = 2025 GROUP BY channel, month) s JOIN marketing_spend m ON m.month = s.month AND m.channel = s.channel GROUP BY s.channel ORDER BY value DESC LIMIT 25"
+  },
+  {
+    "id": 42,
+    "category": "rate_metric",
+    "question": "What was the marketing spend in 2025?",
+    "gold": "SELECT ROUND(SUM(spend),2) AS value FROM marketing_spend WHERE month LIKE '2025%'"
+  },
+  {
+    "id": 43,
+    "category": "rate_metric",
+    "question": "What is our overall ROAS?",
+    "gold": "SELECT ROUND((SELECT SUM(net_revenue) FROM v_sales)/NULLIF((SELECT SUM(spend) FROM marketing_spend),0),2) AS value"
+  },
+  {
+    "id": 44,
+    "category": "rate_metric",
+    "question": "Which product has the worst return rate?",
+    "gold": "SELECT p.product_name AS product, ROUND(100.0*COUNT(DISTINCT CASE WHEN o.status='Returned' THEN o.order_id END)/NULLIF(COUNT(DISTINCT o.order_id),0),2) AS value FROM v_orders o JOIN order_items oi ON oi.order_id = o.order_id JOIN products p ON p.product_id = oi.product_id GROUP BY p.product_name ORDER BY value DESC LIMIT 1"
+  },
+  {
+    "id": 45,
+    "category": "degraded",
+    "question": "Which city has the best ROAS?",
+    "gold": "SELECT s.channel AS channel, ROUND(SUM(s.rev)/NULLIF(SUM(m.spend),0),2) AS value FROM (SELECT channel, month, SUM(net_revenue) AS rev FROM v_sales GROUP BY channel, month) s JOIN marketing_spend m ON m.month = s.month AND m.channel = s.channel GROUP BY s.channel ORDER BY value DESC LIMIT 1",
+    "note": "GRAIN FALLBACK (passes, but flagged) - marketing spend is only tracked at (month, channel) grain, so city-level ROAS is not computable. The engine refuses to invent city-level numbers and falls back to the finest valid grain (channel). A production system would instead reply 'ROAS is not available by city'."
+  },
+  {
+    "id": 46,
+    "category": "out_of_scope",
+    "question": "What is the customer lifetime value by signup cohort?",
+    "gold": "SELECT strftime('%Y-%m', c.signup_date) AS cohort, ROUND(SUM(s.net_revenue)/NULLIF(COUNT(DISTINCT s.customer_id),0),2) AS revenue_per_customer FROM v_sales s JOIN customers c ON c.customer_id = s.customer_id GROUP BY cohort ORDER BY cohort LIMIT 5000",
+    "note": "OUT OF SCOPE - cohort/CLV analysis is Project 3 of this portfolio. In v1.1 the refuse-to-guess gate now declines this instead of returning a wrong scalar. Declining is the correct failure mode: 0 questions are answered WRONG.",
+    "expect_refusal": true
+  },
+  {
+    "id": 47,
+    "category": "trend",
+    "question": "How did revenue grow month over month in 2025?",
+    "gold": "SELECT month, ROUND(net_revenue - LAG(net_revenue) OVER (ORDER BY month),2) AS mom_change FROM (SELECT month, SUM(net_revenue) AS net_revenue FROM v_sales WHERE year = 2025 GROUP BY month) ORDER BY month",
+    "note": "NOW PASSING - month-over-month deltas need the LAG() window function; this was a documented gap in v1 and was implemented in v1.1 after the eval surfaced it."
+  },
+  {
+    "id": 48,
+    "category": "value_compare",
+    "question": "Compare ROAS for Instagram vs Website",
+    "gold": "SELECT s.channel AS channel, ROUND(SUM(s.rev)/NULLIF(SUM(m.spend),0),2) AS value FROM (SELECT channel, month, SUM(net_revenue) AS rev FROM v_sales WHERE channel IN ('Instagram','Website') GROUP BY channel, month) s JOIN marketing_spend m ON m.month = s.month AND m.channel = s.channel GROUP BY s.channel ORDER BY value DESC LIMIT 25",
+    "note": "v1.1 fix - two dimension values must become IN (...), never AND. Previously compiled to channel='Instagram' AND channel='Website' (always false)."
+  },
+  {
+    "id": 49,
+    "category": "value_compare",
+    "question": "Compare revenue for Chennai vs Mumbai",
+    "gold": "SELECT city AS city, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE city IN ('Chennai','Mumbai') GROUP BY city ORDER BY revenue DESC LIMIT 25"
+  },
+  {
+    "id": 50,
+    "category": "value_compare",
+    "question": "Compare revenue for Chennai vs Mumbai last quarter",
+    "gold": "SELECT city AS city, ROUND(SUM(net_revenue),2) AS revenue FROM v_sales WHERE year = 2026 AND quarter = 2 AND city IN ('Chennai','Mumbai') GROUP BY city ORDER BY revenue DESC LIMIT 25",
+    "note": "v1.1 fix - a value comparison must not be hijacked by the 'last year/quarter' period fallback."
+  },
+  {
+    "id": 51,
+    "category": "refusal",
+    "question": "asdkjhasd kjhasd",
+    "gold": "",
+    "note": "v1.1 fix - noise used to return total revenue, which looks like a real answer. The engine must refuse to guess."
+  },
+  {
+    "id": 52,
+    "category": "refusal",
+    "question": "",
+    "gold": "",
+    "note": "Empty input must be refused, not answered."
+  },
+  {
+    "id": 53,
+    "category": "refusal",
+    "question": "12345",
+    "gold": "",
+    "note": "Numeric noise must be refused."
+  },
+  {
+    "id": 54,
+    "category": "refusal",
+    "question": "drop the orders table",
+    "gold": "",
+    "note": "v1.1 fix - destructive intent is refused outright by an intent guard before any SQL is built."
+  },
+  {
+    "id": 55,
+    "category": "refusal",
+    "question": "delete all customers please",
+    "gold": "",
+    "note": "Destructive intent must be refused."
+  }
+]
